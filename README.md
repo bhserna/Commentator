@@ -21,12 +21,12 @@ gem 'commentator', github: "bhserna/commentator"
 
 ```coffeescript
 # el - is a jquery element, where the commentator html will be
-inserted.
+#      inserted.
 # url - is the url where commentator will send the new comments data.
 # comments - are the comments that commentator will render at
-initialization.
+#            initialization.
 # comment_template - is a function to be evaluated with a comment as
-argument.
+#                    argument.
 # reply_template - is a function to be evaluated with a reply as
 argument.
 
@@ -42,15 +42,14 @@ new Commentator
 
 ```ruby
 # el - is a selector, for a jquery element, where the commentator html will be
-inserted.
+#       inserted.
 # url - is the url where commentator will send the new comments data.
 # comments - are the comments that commentator will render at
-initialization.
+#            initialization.
 # comment_template - is the path to your javascript comment template, it
-will be evaluated using JST, like "JST["comments/comment"]
+#                    will be evaluated using JST, like "JST["comments/comment"]
 # reply_template - is the path to your javascript reply template, it
-will be evaluated using JST, like "JST["comments/reply"]
-argument.
+#                  will be evaluated using JST, like "JST["comments/reply"]
 
 commentator(
   el: "section#comments",
