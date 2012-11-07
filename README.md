@@ -8,7 +8,7 @@ to your Rails app in a simple way.
 * Adds commentator to your gemfile:
 
 ```ruby
-gem 'commentator', github: "bhserna/commentator"
+gem 'commentator', github: "bhserna/Commentator"
 ```
 
 * Adds commentator to your manifest in the "application.js"
@@ -45,19 +45,18 @@ new Commentator
 #       inserted.
 # url - is the url where commentator will send the new comments data.
 # comments - are the comments that commentator will render at
-#            initialization.
+#            initialization (in json).
 # comment_template - is the path to your javascript comment template, it
 #                    will be evaluated using JST, like "JST["comments/comment"]
 # reply_template - is the path to your javascript reply template, it
 #                  will be evaluated using JST, like "JST["comments/reply"]
 
-commentator(
-  el: "section#comments",
+<%= commentator(
   url: comments_path,
-  comments: @comments,
+  comments: @comments.to_json,
   comment_template: "comments/comment",
   reply_template: "comments/form"
-)
+) %>
 ```
 
 ## Convetions

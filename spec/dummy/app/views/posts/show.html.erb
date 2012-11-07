@@ -5,17 +5,9 @@
 <%= @post.body %>
 </p>
 
-<div id="commentator">
-</div>
-
-<%= javascript_tag do %>
-  jQuery(function(){
-    new Commentator({
-      el: $("div#commentator"),
-      url: "<%= comments_path(post_id: @post.id) %>",
-      comments: <%= @post.comments_commentator_json(self).html_safe %>,
-      comment_template: JST["comments/comment"],
-      reply_template: JST["comments/reply"]
-    });
-  });
-<% end %>
+<%= commentator(
+  url: comments_path(post_id: @post.id),
+  comments: @post.comments_commentator_json(self),
+  comment_template: "comments/comment",
+  reply_template: "comments/reply"
+) %>
