@@ -38,7 +38,7 @@ new Commentator
   reply_template: JST["comments/reply"]
 ```
 
-* Use commentator as a helpe (pending):
+* Use commentator as a helper (pending):
 
 ```ruby
 # el - is a selector, for a jquery element, where the commentator html will be
