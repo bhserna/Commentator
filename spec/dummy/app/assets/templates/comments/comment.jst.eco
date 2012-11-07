@@ -1,0 +1,3 @@
+<p><%= @comment.message %></p>
+<div id="replies">
+</div>
