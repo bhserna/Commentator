@@ -38,6 +38,8 @@ describe "Replies", ->
       replies_url: "/replies"
 
     app =
+      on_comment: (->)
+      on_reply: (->)
       comment_template: CommentatorTemplates.comment
 
     comment_view = new Commentator.CommentItemView(app, comment_one)
@@ -51,6 +53,7 @@ describe "Replies", ->
       replies_form_template: CommentatorTemplates.replies_form
       reply_link_name: "Comment"
       display_form: true
+      on_reply: app.on_reply
 
     @app = new Replies args
 

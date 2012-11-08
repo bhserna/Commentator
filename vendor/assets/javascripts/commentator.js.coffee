@@ -1,44 +1,37 @@
 #= require "commentator_templates"
+#= require "commentator_poster"
+#= require "commentator_params"
 
 class window.Commentator
 
   constructor: (args) ->
-    @el  = args.el
-    @url = args.url
-    @poster   = args.poster   || new Commentator.Poster
-    @comments = args.comments || @fetch_comments()
-    @reply_link_name = args.reply_link_name || "Comment"
-
-    @set_display_form(args)
-    @set_templates(args)
+    params = new CommentatorParams(args)
+    @el  = params.el()
+    @url = params.url()
+    @poster   = params.poster()
+    @comments = params.comments()
+    @reply_link_name  = params.reply_link_name()
+    @display_form     = params.display_form()
+    @comment_template = params.comment_template()
+    @reply_template   = params.reply_template()
+    @comments_form_template = params.comments_form_template()
+    @replies_form_template  = params.replies_form_template()
+    @on_comment = params.on_comment()
+    @on_reply   = params.on_reply()
 
     @el.delegate ".comments_form", "submit", @add_comment
 
     @render_comments()
-    @render_form() if @display_form and @url?
-
-  set_display_form: (args) ->
-    if args.display_form?
-      @display_form = args.display_form
-    else
-      @display_form = true
-
-  set_templates: (args) ->
-    @comment_template = args.comment_template || CommentatorTemplates.comment
-    @reply_template   = args.reply_template   || CommentatorTemplates.reply
-    @comments_form_template = args.comments_form_template || CommentatorTemplates.comments_form
-    @replies_form_template  = args.replies_form_template  || CommentatorTemplates.replies_form
-
-  fetch_comments: ->
-    @el.data "comments"
+    @render_form()
 
   render_comments: ->
     @comments_view = new Commentator.CommentsView(this, @comments)
     @el.append @comments_view.render()
 
   render_form: ->
-    @form_view = new Commentator.CommentFormView(this)
-    @el.append @form_view.render()
+    if @display_form and @url?
+      @form_view = new Commentator.CommentFormView(this)
+      @el.append @form_view.render()
 
   add_comment: (e) =>
     e.preventDefault()
@@ -101,6 +94,7 @@ class Commentator.CommentItemView
 
   render: ->
     @el.html @template(@comment)
+    @app.on_comment()
     @el
 
   add_replies: ->
@@ -111,6 +105,7 @@ class Commentator.CommentItemView
       reply_link_name: @app.reply_link_name
       replies_form_template: @app.replies_form_template
       display_form: @app.display_form
+      on_reply: @app.on_reply
 
   replies_el: ->
     @el.find "#replies"
@@ -129,15 +124,6 @@ class Commentator.CommentsView
     @el.append comment_view.render()
     comment_view.add_replies()
 
-class Commentator.Poster
-  post: (url, data, callback) ->
-    $.ajax
-      type: "POST"
-      url: url
-      data: data
-      success: (json) =>
-        callback(json)
-
 class window.Replies
 
   constructor: (args) ->
@@ -149,8 +135,9 @@ class window.Replies
     @replies_form_template = args.replies_form_template
     @url = @comment.replies_url
     @display_form = args.display_form
+    @on_reply = args.on_reply
 
-    @poster  = args.poster || new Commentator.Poster
+    @poster  = args.poster || new CommentatorPoster
 
     @el.delegate "[data-link='reply']", "click", @render_form
     @el.delegate "form", "submit", @add_reply
@@ -261,4 +248,5 @@ class Replies.ReplyItemView
 
   render: ->
     @el.html @template(@reply)
+    @app.on_reply()
     @el
