@@ -2,7 +2,9 @@ PATH
   remote: .
   specs:
     commentator (0.0.1)
-      rails (~> 3.2.8)
+      eco (~> 1.0)
+      jquery-rails (>= 1.0.13)
+      rails (~> 3.2)
 
 GEM
   remote: http://rubygems.org/
