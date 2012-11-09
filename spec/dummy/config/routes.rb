@@ -2,7 +2,9 @@ Dummy::Application.routes.draw do
 
   root to: "posts#index"
 
-  resources :posts
+  resources :posts do
+    get :show_with_javascript, on: :member
+  end
   resources :comments do
     post :reply, on: :member
   end

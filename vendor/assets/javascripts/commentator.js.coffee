@@ -6,18 +6,9 @@ class window.Commentator
 
   constructor: (args) ->
     params = new CommentatorParams(args)
-    @el  = params.el()
-    @url = params.url()
-    @poster   = params.poster()
-    @comments = params.comments()
-    @reply_link_name  = params.reply_link_name()
-    @display_form     = params.display_form()
-    @comment_template = params.comment_template()
-    @reply_template   = params.reply_template()
-    @comments_form_template = params.comments_form_template()
-    @replies_form_template  = params.replies_form_template()
-    @on_comment = params.on_comment()
-    @on_reply   = params.on_reply()
+
+    for param in params.all_params
+      @[param] = params[param]()
 
     @el.delegate ".comments_form", "submit", @add_comment
 
@@ -94,7 +85,7 @@ class Commentator.CommentItemView
 
   render: ->
     @el.html @template(@comment)
-    @app.on_comment()
+    @app.on_comment_render(@el)
     @el
 
   add_replies: ->
@@ -105,7 +96,7 @@ class Commentator.CommentItemView
       reply_link_name: @app.reply_link_name
       replies_form_template: @app.replies_form_template
       display_form: @app.display_form
-      on_reply: @app.on_reply
+      on_reply_render: @app.on_reply_render
 
   replies_el: ->
     @el.find "#replies"
@@ -135,7 +126,7 @@ class window.Replies
     @replies_form_template = args.replies_form_template
     @url = @comment.replies_url
     @display_form = args.display_form
-    @on_reply = args.on_reply
+    @on_reply_render = args.on_reply_render
 
     @poster  = args.poster || new CommentatorPoster
 
@@ -248,5 +239,5 @@ class Replies.ReplyItemView
 
   render: ->
     @el.html @template(@reply)
-    @app.on_reply()
+    @app.on_reply_render(@el)
     @el

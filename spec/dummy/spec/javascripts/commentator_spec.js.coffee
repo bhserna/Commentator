@@ -27,11 +27,18 @@ describe "Commentator", ->
       post: (url, data, callback) ->
         callback(@comment)
 
+    @on_comment_render = {
+      callback: (comment) ->
+    }
+
+    spyOn(@on_comment_render, "callback")
+
     @app = new Commentator(
       el: element
       url: "URL"
       comments: comments
       poster: new TestPoster(comment_two)
+      on_comment_render: @on_comment_render.callback
     )
 
   describe "at initialization", ->
@@ -90,6 +97,9 @@ describe "Commentator", ->
 
     it "should have a disabled button", ->
       expect(@app.form_view.button().is(":disabled")).toBeTruthy()
+
+    it "calls the on comment render callback", ->
+      expect(@on_comment_render.callback).toHaveBeenCalled()
 
   describe "send an empty comment", ->
 

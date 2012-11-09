@@ -37,13 +37,15 @@ describe "Replies", ->
       replies: [reply_one]
       replies_url: "/replies"
 
-    app =
-      on_comment: (->)
-      on_reply: (->)
+    @commentator =
+      on_comment_render: (->)
+      on_reply_render: (->)
       comment_template: CommentatorTemplates.comment
 
-    comment_view = new Commentator.CommentItemView(app, comment_one)
+    comment_view = new Commentator.CommentItemView(@commentator, comment_one)
     comment_view.render()
+
+    spyOn(@commentator, "on_reply_render")
 
     args =
       el: comment_view.replies_el()
@@ -53,7 +55,7 @@ describe "Replies", ->
       replies_form_template: CommentatorTemplates.replies_form
       reply_link_name: "Comment"
       display_form: true
-      on_reply: app.on_reply
+      on_reply_render: @commentator.on_reply_render
 
     @app = new Replies args
 
@@ -127,6 +129,9 @@ describe "Replies", ->
 
     it "should have a link to make a new reply", ->
       expect(@app.el.html()).toContain "Comment"
+
+    it "calls the on reply render callback", ->
+      expect(@commentator.on_reply_render).toHaveBeenCalled()
 
   describe "send an empty comment", ->
 

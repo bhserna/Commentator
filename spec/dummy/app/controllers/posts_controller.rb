@@ -20,4 +20,8 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
   end
+
+  def show_with_javascript
+    @post = Post.find(params[:id])
+  end
 end
