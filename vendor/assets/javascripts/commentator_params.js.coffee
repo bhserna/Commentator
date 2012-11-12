@@ -16,7 +16,7 @@ class window.CommentatorParams
     @args.poster || new CommentatorPoster
 
   comments: ->
-    @args.comments || @el.data "comments"
+    @args.comments || @el().data "comments"
 
   reply_link_name: ->
     @args.reply_link_name || "Comment"
