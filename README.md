@@ -53,7 +53,7 @@ new Commentator
 ) %>
 ```
 
-## Convetions
+## Conventions
 
 * Commentator expects, the replies of every comment and the replies
   path, to be contained in the comment json, as in the next example:
