@@ -20,15 +20,11 @@ gem 'commentator', github: "bhserna/Commentator"
 * Use commentator with the coffeescript api:
 
 ```coffeescript
-# el - is a jquery element, where the commentator html will be
-#      inserted.
-# url - is the url where commentator will send the new comments data.
-# comments - are the comments that commentator will render at
-#            initialization.
-# comment_template - is a function to be evaluated with a comment as
-#                    argument.
-# reply_template - is a function to be evaluated with a reply as
-argument.
+# el               - is a jquery element, where the commentator html will be inserted.
+# url              - is the url where commentator will send the new comments data.
+# comments         - are the comments that commentator will render at initialization.
+# comment_template - is a function to be evaluated with a comment as argument.
+# reply_template   - is a function to be evaluated with a reply as argument.
 
 new Commentator
   el: $ "section#comments" 
@@ -41,15 +37,13 @@ new Commentator
 * Use commentator as a helper (pending):
 
 ```ruby
-# el - is a selector, for a jquery element, where the commentator html will be
-#       inserted.
-# url - is the url where commentator will send the new comments data.
-# comments - are the comments that commentator will render at
-#            initialization (in json).
+# el               - is a selector, for a jquery element, where the commentator html will be inserted.
+# url              - is the url where commentator will send the new comments data.
+# comments         - are the comments that commentator will render at initialization (in json).
 # comment_template - is the path to your javascript comment template, it
 #                    will be evaluated using JST, like "JST["comments/comment"]
-# reply_template - is the path to your javascript reply template, it
-#                  will be evaluated using JST, like "JST["comments/reply"]
+# reply_template   - is the path to your javascript reply template, it
+#                    will be evaluated using JST, like "JST["comments/reply"]
 
 <%= commentator(
   url: comments_path,
