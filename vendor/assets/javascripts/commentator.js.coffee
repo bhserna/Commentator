@@ -30,8 +30,7 @@ class window.Commentator
       @_save_comment()
 
   _save_comment: ()->
-    data =
-      message: @form_view.comment()
+    data = $(@form_view.el).serialize()
 
     @poster.post @url, data, (json) =>
       @comments.push json
@@ -162,8 +161,7 @@ class window.Replies
       @_save_message()
 
   _save_message: ->
-    data =
-      message: @form_view.message()
+    data = $(@form_view.el).serialize()
 
     @poster.post @url, data, (json) =>
       @replies.push json
