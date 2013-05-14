@@ -70,7 +70,7 @@ class Commentator.CommentFormView
     @textarea().val()
 
   clean: ->
-    @textarea().val ""
+    @el[0].reset()
 
   textarea: ->
     @el.find "textarea"
@@ -219,7 +219,7 @@ class Replies.ReplyFormView
     @textarea().val()
 
   clean: ->
-    @textarea().val("")
+    @el[0].reset()
 
   remove: ->
     @el.remove()
