@@ -11,8 +11,8 @@ window.CommentatorTemplates =
     """
 
   comments_form: """
-    <label for="comment">Envía un comentario</label>
-    <textarea cols="40" id="comment" name="comment" rows="20">
+    <label for="message">Envía un comentario</label>
+    <textarea cols="40" id="message" name="message" rows="20">
     </textarea>
     <input class="btn" type="submit" value="Enviar">
     """
@@ -26,6 +26,6 @@ window.CommentatorTemplates =
     """
 
   replies_form: """
-    <textarea id="message" rows="1"></textarea>
+    <textarea id="message" name="message" rows="1"></textarea>
     <button>Enviar</button>
     """

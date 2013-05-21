@@ -12,8 +12,17 @@ class Replies.TestRepliesPoster
         area_name: "Margaritas"
 
   post: (url, data, callback) ->
-    @reply.message = data.message
+    @reply.message = @unparam(data).message
     callback(@reply)
+
+  unparam: (value) ->
+    params = {}
+    pieces = value.split('&')
+    for piece in pieces
+      pair  = piece.split('=', 2)
+      value = decodeURIComponent(pair[1].replace(/\+/g, ' '))
+      params[decodeURIComponent(pair[0])] = value
+    params
 
 describe "Replies", ->
   beforeEach ->
